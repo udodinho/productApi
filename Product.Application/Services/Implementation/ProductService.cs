@@ -34,11 +34,10 @@ namespace Product.Application.Services.Implementation
 
             if (!string.IsNullOrEmpty(parameter.Search))
             {
-                var search = parameter.Search.ToLower();
-                var searchQuery = parameter.Search.ToLower().Trim();
+                var search = parameter.Search.Trim();
                 query = query.Where(x =>
-                      x.Name.ToLower().Contains(searchQuery)
-                      || x.Description.ToString().ToLower().Contains(searchQuery));
+                      x.Name.ToLower().Contains(search)
+                      || x.Description.ToLower().Contains(search));
             }
 
             if (parameter.StartDate != null)
