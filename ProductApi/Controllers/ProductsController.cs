@@ -1,4 +1,5 @@
 ﻿using Application.Helper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Product.Application.Dtos;
 using Product.Application.Helpers;
@@ -7,6 +8,7 @@ using Product.Domain.Entities;
 
 namespace ProductApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
