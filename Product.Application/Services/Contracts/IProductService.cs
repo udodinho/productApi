@@ -11,6 +11,6 @@ namespace Product.Application.Services.Contracts
         Task<SuccessResponse<ProductsResponse>> UpdateProduct(string userId, string productId, UpdateProductDto model);
         Task<SuccessResponse<string>> DeleteProduct(string userId, string productId);
         Task<SuccessResponse<ProductsResponse>> Product(string userId, string productId);
-        Task<PagedResponse<IEnumerable<ProductsResponse>>> Products(ResourceParameters parameter, string name, IUrlHelper urlHelper, string userId);
+        Task<PagedResponse<IEnumerable<ProductsResponse>>> Products(ResourceParameters parameter, string name, IUrlHelper urlHelper);
     }
 }
