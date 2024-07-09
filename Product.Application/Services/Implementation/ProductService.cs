@@ -26,11 +26,11 @@ namespace Product.Application.Services.Implementation
         }
 
 
-        public async Task<PagedResponse<IEnumerable<ProductsResponse>>> Products(ResourceParameters parameter, string name, IUrlHelper urlHelper, string userId)
+        public async Task<PagedResponse<IEnumerable<ProductsResponse>>> Products(ResourceParameters parameter, string name, IUrlHelper urlHelper)
         {
             var products = new List<ProductItem>();
 
-            var query = _unitOfWork.Products.QueryAll(x => x.UserId == userId);
+            var query = _unitOfWork.Products.QueryAll();
 
             if (!string.IsNullOrEmpty(parameter.Search))
             {
@@ -48,6 +48,10 @@ namespace Product.Application.Services.Implementation
             if (parameter.EndDate != null)
             {
                 query = query.Where(x => parameter.EndDate >= x.CreatedAt);
+            }
+
+            if (parameter.UserId != null) {
+                query = query.Where(x => x.UserId == parameter.UserId);
             }
 
             products = query.ToList();
