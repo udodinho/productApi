@@ -5,10 +5,14 @@ using Product.Application.Dtos;
 using Product.Application.Helpers;
 using Product.Application.Services.Contracts;
 using Product.Domain.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ProductApi.Controllers
 {
-    [Authorize]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
@@ -19,11 +23,11 @@ namespace ProductApi.Controllers
             _service = service;
         }
 
-        [HttpGet("{userId}")]
+        [HttpGet]
         [ProducesResponseType(typeof(SuccessResponse<List<ProductItem>>), 200)]
-        public async Task<IActionResult> Get([FromQuery] ResourceParameters parameter, [FromRoute] string userId)
+        public async Task<IActionResult> Get([FromQuery] ResourceParameters parameter)
         {
-            var result = await _service.Products(parameter, nameof(Get), Url, userId);
+            var result = await _service.Products(parameter, nameof(Get), Url);
             return Ok(result);
         }
 
